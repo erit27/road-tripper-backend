@@ -7,6 +7,7 @@ REFRESH_TOKEN = process.env.REFRESH_TOKEN_SECRET;
 const jwt = require('jsonwebtoken');
 const {uuid} = require('uuidv4');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 app.use(cors())
 app.use(express.json())
@@ -61,19 +62,20 @@ function checkToken(req, _res, next) {
 	}
 }
 
-app.post('/login', (req, res) => {
-	if (req.body.username && req.body.password) {
-		const foundUser = users.find(
-			(user) =>
-			user.username === req.body.username && user.password === req.body.password 
-		);
-		if (foundUser) {
+app.post('/login', async (req, res) => {
+	const foundUser = users.find( user => user.username === req.body.username)
+	if (foundUser == null ) {
+		return res.status(400).send('cannot find user')
+	}
+	try {
+		if (await bcrypt.compare(req.body.password, foundUser.password)) {
 			const user = {
 				id: foundUser.id, 
 				username: foundUser.username, 
 				firstName: foundUser.firstName,
 				lastName: foundUser.lastName
 			}
+			console.log('login success!')
 			const jwtToken = jwt.sign(user ,JWT_SECRET);
 			res.json({
 				message: 'login success',
@@ -82,9 +84,32 @@ app.post('/login', (req, res) => {
 		} else {
 			res.status(401).send('This is not a valid user/password')
 		}
-	} else {
-		res.status(400).send('Please provide a username and password')
+	} catch {
+		res.status(500).send();
 	}
+	// if (req.body.username && req.body.password) {
+	// 	const foundUser = users.find(
+	// 		(user) =>
+	// 		user.username === req.body.username && user.password === req.body.password 
+	// 	);
+	// 	if (foundUser) {
+	// 		const user = {
+	// 			id: foundUser.id, 
+	// 			username: foundUser.username, 
+	// 			firstName: foundUser.firstName,
+	// 			lastName: foundUser.lastName
+	// 		}
+	// 		const jwtToken = jwt.sign(user ,JWT_SECRET);
+	// 		res.json({
+	// 			message: 'login success',
+	// 			token: jwtToken,
+	// 		});
+	// 	} else {
+	// 		res.status(401).send('This is not a valid user/password')
+	// 	}
+	// } else {
+	// 	res.status(400).send('Please provide a username and password')
+	// }
 })
 
 app.get('/posts', checkToken, (req, res) => {
@@ -125,18 +150,26 @@ app.get('/profile', checkToken, (req, res) => {
 // 	}
 // }) ;
 
-app.post('/createaccount', (req, res) => {
-	const { username, firstName, lastName, password } = req.body;
-	const id = uuid();
-	users[username] = {
-		username,
-		password,
-		id,
-		firstName,
-		lastName
-	};
-	console.log('users object:', users);
-	res.json({ success: 'true' });
+app.post('/createaccount', async (req, res) => {
+	try {
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(req.body.password, salt);
+		console.log('salt', salt);
+		console.log('hashedpw', hashedPassword)
+		const password = hashedPassword;
+		const id = uuid();
+		const newUser = {
+			username: req.body.username,
+			password: hashedPassword,
+			firstName: req.body.firstName,
+			lastName: req.body.lastName
+		}
+		users.push(newUser);
+		console.log('users object:', users);
+		res.status(201).json({ success: 'User Created' });
+	} catch {
+		res.status(500).send();
+	}
 });
 
 
