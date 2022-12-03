@@ -5,6 +5,7 @@ PORT = process.env.PORT || 5050;
 JWT_SECRET = process.env.JSONSECRETKEY;
 REFRESH_TOKEN = process.env.REFRESH_TOKEN_SECRET;
 const jwt = require('jsonwebtoken');
+const {uuid} = require('uuidv4');
 const cors = require('cors');
 
 app.use(cors())
@@ -25,7 +26,7 @@ const users = [
 		password: 'jim2',
 		id: 2,
 		firstName: 'Jim',
-		lastName: 'Ritchie'
+		lastName: 'Bennet'
 	}
 ];
 
@@ -126,9 +127,11 @@ app.get('/profile', checkToken, (req, res) => {
 
 app.post('/createaccount', (req, res) => {
 	const { username, firstName, lastName, password } = req.body;
+	const id = uuid();
 	users[username] = {
-		name,
+		username,
 		password,
+		id,
 		firstName,
 		lastName
 	};
