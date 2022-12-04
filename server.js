@@ -12,8 +12,6 @@ const bcrypt = require('bcrypt');
 app.use(cors())
 app.use(express.json())
 
-
-
 const users = [
 	{
 		username: 'eilidh',
@@ -87,29 +85,6 @@ app.post('/login', async (req, res) => {
 	} catch {
 		res.status(500).send();
 	}
-	// if (req.body.username && req.body.password) {
-	// 	const foundUser = users.find(
-	// 		(user) =>
-	// 		user.username === req.body.username && user.password === req.body.password 
-	// 	);
-	// 	if (foundUser) {
-	// 		const user = {
-	// 			id: foundUser.id, 
-	// 			username: foundUser.username, 
-	// 			firstName: foundUser.firstName,
-	// 			lastName: foundUser.lastName
-	// 		}
-	// 		const jwtToken = jwt.sign(user ,JWT_SECRET);
-	// 		res.json({
-	// 			message: 'login success',
-	// 			token: jwtToken,
-	// 		});
-	// 	} else {
-	// 		res.status(401).send('This is not a valid user/password')
-	// 	}
-	// } else {
-	// 	res.status(400).send('Please provide a username and password')
-	// }
 })
 
 app.get('/posts', checkToken, (req, res) => {
@@ -123,32 +98,6 @@ app.get('/profile', checkToken, (req, res) => {
 		})
 	}
 })
-
-
-// app.use((req, res, next) => {
-// 	//allow access to any pages not req login token
-// 	if (req.url === '/' || 
-// 			req.url === '/aboutus' || 
-// 			req.url === '/gallery'||
-// 			req.url === '/login'||
-// 			req.url === '/createaccount') {
-// 		next();
-// 	} else {
-// 		const token = getToken(req);
-// 		if (token) {
-// 			console.log('Auth Token: ', token);
-// 			if(jwt.verify(token, JWT_SECRET)) {
-// 				//decode token to pass along data to end-points that may require data from token
-// 				req.decode = jwt.decode(token);
-// 				next();
-// 			} else {
-// 				res.status(403).json({error: "Not Authorized"});
-// 			}
-// 		} else {
-// 			res.status(403).json({error: "No token. Unauthorized"});
-// 		}
-// 	}
-// }) ;
 
 app.post('/createaccount', async (req, res) => {
 	try {
