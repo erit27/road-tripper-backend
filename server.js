@@ -8,9 +8,19 @@ const jwt = require('jsonwebtoken');
 const {uuid} = require('uuidv4');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const { default: knex } = require('knex');
+const { response } = require('express');
+const authRoutes = require('./routes/authRoutes')
 
 app.use(cors())
 app.use(express.json())
+// app.use(( req, res, next )=>{
+// 	next() 
+// })
+
+app.use(( req, res, next )=>{
+	next() 
+})
 
 const users = [
 	{
@@ -99,28 +109,31 @@ app.get('/profile', checkToken, (req, res) => {
 	}
 })
 
-app.post('/createaccount', async (req, res) => {
-	try {
-		const salt = await bcrypt.genSalt(10);
-		const hashedPassword = await bcrypt.hash(req.body.password, salt);
-		console.log('salt', salt);
-		console.log('hashedpw', hashedPassword)
-		const password = hashedPassword;
-		const id = uuid();
-		const newUser = {
-			username: req.body.username,
-			password: hashedPassword,
-			firstName: req.body.firstName,
-			lastName: req.body.lastName
-		}
-		users.push(newUser);
-		console.log('users object:', users);
-		res.status(201).json({ success: 'User Created' });
-	} catch {
-		res.status(500).send();
-	}
-});
+// app.post('/createaccount', async (req, res) => {
+// 	try {
+// 		const salt = await bcrypt.genSalt(10);
+// 		const hashedPassword = await bcrypt.hash(req.body.password, salt);
+// 		console.log('salt', salt);
+// 		console.log('hashedpw', hashedPassword)
+// 		const newId = uuid();
+// 		const newUser = {
+// 			username: req.body.username,
+// 			password: hashedPassword,
+// 			firstName: req.body.firstName,
+// 			lastName: req.body.lastName,
+// 			id: newId
+// 		}
+// 		users.push(newUser);
+// 		// knex('users').insert(newUser)
+// 		console.log('users object:', users);
+// 		res.status(201).json({ success: 'User Created' });
+// 	} catch {
+// 		res.status(500).send();
+// 	}
+// });
 
+
+app.use('/', authRoutes)
 
 app.listen(PORT, function () {
 	console.log(`🚀 💻 server running at http://localhost:${PORT} 📡 🚀`);
