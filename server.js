@@ -9,6 +9,8 @@ const {uuid} = require('uuidv4');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 
+const authRoutes = require('./routes/authRoutes')
+
 app.use(cors())
 app.use(express.json())
 
@@ -171,6 +173,8 @@ app.post('/createaccount', async (req, res) => {
 		res.status(500).send();
 	}
 });
+
+app.use('/createaccount', authRoutes)
 
 
 app.listen(PORT, function () {
