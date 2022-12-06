@@ -10,9 +10,11 @@ const bcrypt = require('bcrypt');
 const { default: knex } = require('knex');
 const { response } = require('express');
 const authRoutes = require('./routes/authRoutes')
+const postRoutes = require('./routes/postRoutes')
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public'));
 // app.use(( req, res, next )=>{
 // 	next() 
 // })
@@ -64,9 +66,9 @@ function checkToken(req, _res, next) {
 // 	}
 // })
 
-app.get('/posts', checkToken, (req, res) => {
-	res.json(posts.filter(post => post.username === req.user.username))
-})
+// app.get('/posts', checkToken, (req, res) => {
+// 	res.json(posts.filter(post => post.username === req.user.username))
+// })
 
 app.get('/profile', checkToken, (req, res) => {
 	if (req.user) {
@@ -78,6 +80,7 @@ app.get('/profile', checkToken, (req, res) => {
 
 
 app.use('/', authRoutes)
+app.use('/posts', postRoutes)
 
 app.listen(PORT, function () {
 	console.log(`🚀 💻 server running at http://localhost:${PORT} 📡 🚀`);

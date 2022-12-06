@@ -11,6 +11,7 @@ exports.up = function(knex) {
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
     table.string('title').notNullable();
+    table.string('hero_photo_url').notNullable().defaultTo('');
     table.mediumtext('content').notNullable();
     table.mediumtext('private_content').notNullable();
     table.timestamps(true, true);
