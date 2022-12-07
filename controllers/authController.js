@@ -30,19 +30,16 @@ exports.createAccount = async (req, res) => {
   }
 };
 
+
 exports.login = (req, res) => {
-  console.log(req.body);
   knex("users")
     .where({ username: req.body.username })
     .then((user) => {
-      // console.log(user);
-      // console.log(user[0].hashed_pw)
-      // console.log(req.body.password)
       bcrypt.compare(
         req.body.password,
         user[0].hashed_pw,
-        function (error, data) {
-          if (data) {
+        (error, data) => {
+          if (!error) {
             const jwtToken = jwt.sign({ id: user[0].id, username: user[0].username}, JWT_SECRET);
             res.status(200).json({
               message: "login success",
@@ -58,30 +55,3 @@ exports.login = (req, res) => {
       res.status(400);
     });
 };
-
-// app.post("/login", (request, response, next) => {
-//   database("user")
-//   .where({username: request.body.username})
-//   .first()
-//   .then(user => {
-//      if(!user){
-//         response.status(401).json({
-//            error: "No user by that name"
-//         })
-//      }else{
-//         return bcrypt
-//         .compare(request.body.password, user.password_digest)
-//         .then(isAuthenticated => {
-//            if(!isAuthenticated){
-//               response.status(401).json({
-//                  error: "Unauthorized Access!"
-//               })
-//            }else{
-//               return jwt.sign(user, SECRET, (error, token) => {
-//                  response.status(200).json({token})
-//               })
-//            }
-//         })
-//      }
-//   })
-// })
