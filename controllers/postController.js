@@ -1,4 +1,27 @@
 const knex = require("knex")(require("../knexfile"));
+require('dotenv').config()
+JWT_SECRET = process.env.JSONSECRETKEY;
+const jwt = require('jsonwebtoken');
+
+function getToken(req) {
+  if (req.headers.authorization) {
+    return req.headers.authorization.split(" ")[1];
+  } else {
+    return 
+  }
+}
+
+// set up access to pages based on logged in status
+function checkToken(req, _res, next) {
+	const token = getToken(req);
+	if (token && jwt.verify(token, JWT_SECRET)) {
+		req.user = jwt.decode(token); //attach decoded token to req object
+		next();
+	} else {
+		res.status(401).send('No valid token sent')
+		next();
+	}
+}
 
 exports.getPosts = (req, res) => {
   knex("posts")
@@ -23,7 +46,6 @@ exports.getPosts = (req, res) => {
     })
 }
 
-
 exports.postInfo = (req, res) => {
   knex("posts")
     .join('users', {'users.id': 'posts.user_id'})
@@ -38,6 +60,39 @@ exports.postInfo = (req, res) => {
       })
     })
 }
+
+exports.getSinglePost = (req, res) => {
+  knex("posts")
+    .where({id: req.params.postId})
+    .then((data) => {
+      const token = getToken(req); 
+      console.log(token)
+      if(token && jwt.verify(token, JWT_SECRET)) {
+        const privateData = data;
+        res.status(200).json(privateData)
+      } else {
+        const publicData = data.map(post => {
+          return {
+          id: post.id,
+          userId: post.user_id,
+          title: post.title,
+          heroPhotoUrl: post.hero_photo_url,
+          content: post.content,
+          timestamp: post.created_at
+          }
+        })
+        res.status(200).json(publicData)
+      }
+    })
+}
+
+// app.get(`posts/:postId`, checkToken, (req, res) => {
+// 	if(req.user) {
+// 		res.send('you get private data')
+// 	} else {
+// 		res.status(400).send('you get the public data')
+// 	}
+// })
 
 exports.getSinglePublicPost = (req, res) => {
   knex('posts')

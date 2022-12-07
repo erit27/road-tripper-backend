@@ -13,6 +13,7 @@ const authRoutes = require('./routes/authRoutes')
 const postRoutes = require('./routes/postRoutes')
 const userRoutes = require('./routes/userRoutes')
 
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'));
@@ -44,6 +45,8 @@ app.get('/profile', checkToken, (req, res) => {
 		})
 	}
 })
+
+
 
 app.use('/', authRoutes)
 app.use('/posts', postRoutes)

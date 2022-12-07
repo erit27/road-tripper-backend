@@ -11,11 +11,13 @@ router
   .get(postController.postInfo)
 
 router
-  .route('/:postID')
-  .get(postController.getSinglePublicPost)
+  .route('/:postId')
+  .get(postController.getSinglePost)
 
-router
-  .route('/:postID/private')
-  .get(postController.getSinglePrivatePost)
+// router
+//   .route('/:postID/private')
+//   .get(postController.getSinglePrivatePost)
 
   module.exports = router;
+
+  

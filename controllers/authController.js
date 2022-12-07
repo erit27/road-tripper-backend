@@ -38,8 +38,8 @@ exports.login = (req, res) => {
         req.body.password,
         user[0].hashed_pw,
         (error, data) => {
-          if (data) {
-            const jwtToken = jwt.sign({ id: user[0].id, username: user[0].username}, JWT_SECRET);
+          if (!error) {
+            const jwtToken = jwt.sign({ id: user[0].id, username: user[0].username, access: user[0].access}, JWT_SECRET);
             res.status(200).json({
               message: "login success",
               token: jwtToken,
