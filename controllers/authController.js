@@ -30,7 +30,6 @@ exports.createAccount = async (req, res) => {
   }
 };
 
-
 exports.login = (req, res) => {
   knex("users")
     .where({ username: req.body.username })
@@ -39,12 +38,15 @@ exports.login = (req, res) => {
         req.body.password,
         user[0].hashed_pw,
         (error, data) => {
-          if (!error) {
+          if (data) {
             const jwtToken = jwt.sign({ id: user[0].id, username: user[0].username}, JWT_SECRET);
             res.status(200).json({
               message: "login success",
               token: jwtToken,
             });
+            console.log(error);
+            console.log(data);
+            console.log(user[0]);
           } else {
             res.status(401).send("This is not a valid user/password");
           }
@@ -52,6 +54,6 @@ exports.login = (req, res) => {
       );
     })
     .catch(() => {
-      res.status(400);
+      res.status(400).send('invalid username/pw');
     });
 };

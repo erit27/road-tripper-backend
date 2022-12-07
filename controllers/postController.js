@@ -23,6 +23,22 @@ exports.getPosts = (req, res) => {
     })
 }
 
+
+exports.postInfo = (req, res) => {
+  knex("posts")
+    .join('users', {'users.id': 'posts.user_id'})
+    .select('posts.title', 'users.first_name', 'posts.created_at', 'users.last_name', 'posts.hero_photo_url', 'posts.id')
+    .then((data) => {
+      res.status(200).json(data)
+      })
+    .catch((err) => {
+      res.status(400).json({
+        'message': 'There was an error getting post data',
+        'error': err
+      })
+    })
+}
+
 exports.getSinglePublicPost = (req, res) => {
   knex('posts')
     .where( {id: req.params.postID })

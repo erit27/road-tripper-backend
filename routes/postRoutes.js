@@ -6,6 +6,10 @@ router
   .route('/')
   .get(postController.getPosts);
 
+  router
+  .route('/postinfo')
+  .get(postController.postInfo)
+
 router
   .route('/:postID')
   .get(postController.getSinglePublicPost)
