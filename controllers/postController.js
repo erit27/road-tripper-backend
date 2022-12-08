@@ -64,10 +64,10 @@ exports.postInfo = (req, res) => {
 exports.getSinglePost = (req, res) => {
   knex("posts")
     .where({id: req.params.postId})
-    .then((data) => {
+    .then(async (data) => {
       const token = getToken(req); 
-      console.log(token)
-      if(token && jwt.verify(token, JWT_SECRET)) {
+      const decoded = jwt.decode(token)
+      if(decoded.access === 'read' && jwt.verify(token, JWT_SECRET)) {
         const privateData = data;
         res.status(200).json(privateData)
       } else {
