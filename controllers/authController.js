@@ -4,6 +4,7 @@ const { uuid } = require("uuidv4");
 JWT_SECRET = process.env.JSONSECRETKEY;
 const jwt = require("jsonwebtoken");
 
+
 exports.createAccount = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);

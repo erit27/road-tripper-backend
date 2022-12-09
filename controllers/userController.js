@@ -8,6 +8,8 @@ exports.getUsers = (req, res) => {
             id: user.id,
             firstName: user.first_name,
             lastName: user.first_name,
+            access: user.access,
+            username: user.username
           }
         }
           )
@@ -18,5 +20,18 @@ exports.getUsers = (req, res) => {
         'message': 'There was an error getting user data',
         'error': err
       })
+    })
+}
+
+
+exports.updateUser = (req, res) => {
+  knex("users")
+    .where( {id:  req.body.id})
+    .update(req.body)
+    .then((data) => {
+      res.status(200).send('it updated')
+    })
+    .catch(() => {
+      res.status(400).send('it did not work.')
     })
 }

@@ -6,5 +6,8 @@ router
   .route('/')
   .get(authController.getUsers);
 
+router
+  .route('/updatepermissions')
+  .put(authController.updateUser);
 
   module.exports = router;

@@ -23,7 +23,11 @@ app.use(( req, res, next )=>{
 })
 
 function getToken(req) {
-	return req.headers.authorization.split(" ")[1];
+  if (req.headers.authorization) {
+    return req.headers.authorization.split(" ")[1];
+  } else {
+    return 
+  }
 }
 
 // set up access to pages based on logged in status
@@ -45,8 +49,6 @@ app.get('/profile', checkToken, (req, res) => {
 		})
 	}
 })
-
-
 
 app.use('/', authRoutes)
 app.use('/posts', postRoutes)
