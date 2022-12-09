@@ -26,6 +26,31 @@ exports.postInfo = (req, res) => {
     })
 }
 
+exports.getLocations = (req, res) => {
+  knex("location")
+    .then(async (data) => {
+      const token = getToken(req); 
+      const decoded = jwt.decode(token)
+      if((token && decoded.access === 'family') && jwt.verify(token, JWT_SECRET)) {
+        const privateLocations = data.map(loc => {
+          return {
+            lat: loc.private_lat,
+            long: loc.private_long
+          }
+        })
+        res.status(200).json(privateLocations)
+      } else {
+        const publicLocations = data.map(loc => {
+          return {
+          lat: loc.latitude,
+          long: loc.longitude
+          }
+        })
+        res.status(200).json(publicLocations)
+      }
+    })
+}
+
 exports.getSinglePost = (req, res) => {
   knex("posts")
     .where({id: req.params.postId})
@@ -50,26 +75,3 @@ exports.getSinglePost = (req, res) => {
       }
     })
 }
-
-// exports.getPosts = (req, res) => {
-//   knex("posts")
-//     .then((data) => {
-//         const postData = data.map( post => {
-//           return {
-//             id: post.id,
-//             title: post.title,
-//             userId: post.user_id,
-//             heroUrl: post.hero_photo_url,
-//             timestamp: post.created_at
-//           }
-//         }
-//           )
-//         res.json(postData)
-//       })
-//     .catch((err) => {
-//       res.status(400).json({
-//         'message': 'There was an error getting post data',
-//         'error': err
-//       })
-//     })
-// }
