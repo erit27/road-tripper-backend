@@ -14,6 +14,8 @@ router
   .route('/:postId')
   .get(postController.getSinglePost)
 
+
+
 // router
 //   .route('/:postID/private')
 //   .get(postController.getSinglePrivatePost)
