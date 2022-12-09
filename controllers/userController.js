@@ -23,7 +23,6 @@ exports.getUsers = (req, res) => {
     })
 }
 
-
 exports.updateUser = (req, res) => {
   knex("users")
     .where( {id:  req.body.id})
