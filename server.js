@@ -4,14 +4,15 @@ require('dotenv').config()
 PORT = process.env.PORT || 5050;
 JWT_SECRET = process.env.JSONSECRETKEY;
 const jwt = require('jsonwebtoken');
-const {uuid} = require('uuidv4');
+// const {uuid} = require('uuidv4');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const { default: knex } = require('knex');
-const { response } = require('express');
+// const bcrypt = require('bcrypt');
+// const { default: knex } = require('knex');
+// const { response } = require('express');
 const authRoutes = require('./routes/authRoutes')
 const postRoutes = require('./routes/postRoutes')
 const userRoutes = require('./routes/userRoutes')
+const photoRoutes = require('./routes/photoRoutes')
 
 
 app.use(cors())
@@ -53,6 +54,7 @@ app.get('/profile', checkToken, (req, res) => {
 app.use('/', authRoutes)
 app.use('/posts', postRoutes)
 app.use('/users', userRoutes)
+app.use('/photos', photoRoutes)
 
 app.listen(PORT, function () {
 	console.log(`🚀 💻 server running at http://localhost:${PORT} 📡 🚀`);
