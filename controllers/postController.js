@@ -53,19 +53,22 @@ exports.getLocations = (req, res) => {
 
 exports.getSinglePost = (req, res) => {
   knex("posts")
-    .where({id: req.params.postId})
+    .join('users', {'users.id': 'posts.user_id'})
+    .select('posts.title', 'users.first_name', 'users.last_name', 'posts.created_at', 'posts.hero_photo_url', 'posts.content', 'posts.private_content', 'posts.id')
+    .where({'posts.id': req.params.postId})
     .then(async (data) => {
       const token = getToken(req); 
       const decoded = jwt.decode(token)
-      if((token && decoded.access === 'read') && jwt.verify(token, JWT_SECRET)) {
+      if((token && decoded.access === 'family') && jwt.verify(token, JWT_SECRET)) {
         const privateData = data;
         res.status(200).json(privateData)
       } else {
         const publicData = data.map(post => {
           return {
           id: post.id,
-          userId: post.user_id,
           title: post.title,
+          firstName: post.first_name,
+          lastName: post.last_name,
           heroPhotoUrl: post.hero_photo_url,
           content: post.content,
           timestamp: post.created_at

@@ -5,7 +5,7 @@ CLOUD_NAME = process.env.CLOUDINARY_NAME
 CLOUD_KEY = process.env.CLOUDINARY_KEY;
 CLOUD_SECRET = process.env.CLOUDINARY_SECRET;
 
-
+// https://stackoverflow.com/questions/36718734/how-to-list-all-the-images-videos-within-a-folder-from-cloudinary-in-node-js
 cloudinary.config({
 	secure: true
 })
@@ -16,16 +16,4 @@ exports.getPhotos = (req, res) => {
     res.status(200).json(result.resources)
     console.log(result.resources)
   })
-  // await axios
-  //   .post(`https://${CLOUD_KEY}:${CLOUD_SECRET}@api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image`, {
-  //     auth: {
-  //       username: process.env.CLOUD_KEY,
-  //       password: process.env.CLOUD_SECRET
-  //     }
-  //   })
-  //   .then((response) => {
-  //     console.log(response.data.resources)
-  //     // res.status(200).json(data.data.resouces)
-  //     })
-  //   .catch(err => console.log(err))
 }

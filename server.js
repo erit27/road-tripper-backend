@@ -14,7 +14,6 @@ const postRoutes = require('./routes/postRoutes')
 const userRoutes = require('./routes/userRoutes')
 const photoRoutes = require('./routes/photoRoutes')
 
-
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'));
@@ -59,3 +58,5 @@ app.use('/photos', photoRoutes)
 app.listen(PORT, function () {
 	console.log(`🚀 💻 server running at http://localhost:${PORT} 📡 🚀`);
 });
+
+
