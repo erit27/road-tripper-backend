@@ -15,7 +15,7 @@ exports.createAccount = async (req, res) => {
     first_name: req.body.firstName,
     last_name: req.body.lastName,
     id: newId,
-    access: "read",
+    access: "public",
   };
   try {
     knex("users")
@@ -40,7 +40,12 @@ exports.login = (req, res) => {
         user[0].hashed_pw,
         (error, data) => {
           if (!error) {
-            const jwtToken = jwt.sign({ id: user[0].id, username: user[0].username, access: user[0].access}, JWT_SECRET);
+            const jwtToken = jwt.sign({ 
+              id: user[0].id, 
+              username: user[0].username, 
+              access: user[0].access, 
+              firstName:user[0].first_name, 
+              lastName:user[0].last_name}, JWT_SECRET);
             res.status(200).json({
               message: "login success",
               token: jwtToken,

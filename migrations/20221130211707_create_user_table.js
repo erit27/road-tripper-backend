@@ -7,11 +7,11 @@ exports.up = function(knex) {
     table.uuid('id').primary();
     table.string('username').notNullable();
     table.string('first_name').notNullable();
-    table.string('last_name');
+    table.string('last_name').notNullable();
     table.string('hashed_pw').notNullable();
     table.string('avatar');
     table.string('access').notNullable();
-    table.timestamps(true, true);
+    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
   })
 };
 

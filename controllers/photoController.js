@@ -2,7 +2,7 @@ require('dotenv').config()
 const cloudinary = require('cloudinary').v2;
 const axios = require('axios')
 
-// https://stackoverflow.com/questions/36718734/how-to-list-all-the-images-videos-within-a-folder-from-cloudinary-in-node-js
+// https://stackoverflow.com/questions/36718734/githow-to-list-all-the-images-videos-within-a-folder-from-cloudinary-in-node-js
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_KEY,
