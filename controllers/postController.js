@@ -31,7 +31,8 @@ exports.getLocations = (req, res) => {
     .then(async (data) => {
       const token = getToken(req); 
       const decoded = jwt.decode(token)
-      if((token && decoded.access === 'family') && jwt.verify(token, JWT_SECRET)) {
+      console.log(jwt.decode(token))
+      if(token && decoded && (decoded.access === ('family' || 'admin')) && jwt.verify(token, JWT_SECRET)) {
         const privateLocations = data.map(loc => {
           return {
             lat: loc.private_lat,
@@ -58,8 +59,10 @@ exports.getSinglePost = (req, res) => {
     .where({'posts.id': req.params.postId})
     .then(async (data) => {
       const token = getToken(req); 
+      console.log('token', token);
       const decoded = jwt.decode(token)
-      if((token && decoded.access === 'family') && jwt.verify(token, JWT_SECRET)) {
+      console.log('decoded', decoded);
+      if((token && decoded && decoded.access === 'family') && jwt.verify(token, JWT_SECRET)) {
         const privateData = data;
         res.status(200).json(privateData)
       } else {

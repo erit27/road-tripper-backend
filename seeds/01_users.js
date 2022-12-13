@@ -47,8 +47,7 @@ exports.seed = async function(knex) {
       last_name: 'Eleven',
       avatar: 'https://i.cbc.ca/1.5185052.1561146080!/cpImage/httpImage/seagull-feature-20110323.jpg',
       hashed_pw: 'placeholder',
-      access: 'public',
-      created_at: 1665986482
+      access: 'public'
     },
     {
       id: 'b2bf9a09-31b0-446b-98bc-05f77c9ad231',
