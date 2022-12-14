@@ -31,8 +31,8 @@ exports.getLocations = (req, res) => {
     .then(async (data) => {
       const token = getToken(req); 
       const decoded = jwt.decode(token)
-      console.log(jwt.decode(token))
-      if(token && decoded && (decoded.access === ('family' || 'admin')) && jwt.verify(token, JWT_SECRET)) {
+      // console.log(jwt.decode(token))
+      if(token && decoded && (decoded.access === 'family' || decoded.access === 'admin') && jwt.verify(token, JWT_SECRET)) {
         const privateLocations = data.map(loc => {
           return {
             lat: loc.private_lat,
@@ -59,25 +59,25 @@ exports.getSinglePost = (req, res) => {
     .where({'posts.id': req.params.postId})
     .then(async (data) => {
       const token = getToken(req); 
-      console.log('token', token);
+      // console.log('token', token);
       const decoded = jwt.decode(token)
-      console.log('decoded', decoded);
+      // console.log('decoded', decoded);
       if((token && decoded && decoded.access === 'family') && jwt.verify(token, JWT_SECRET)) {
-        const privateData = data;
+        const privateData = data[0];
         res.status(200).json(privateData)
       } else {
         const publicData = data.map(post => {
           return {
           id: post.id,
           title: post.title,
-          firstName: post.first_name,
-          lastName: post.last_name,
-          heroPhotoUrl: post.hero_photo_url,
+          first_name: post.first_name,
+          last_name: post.last_name,
+          hero_photo_url: post.hero_photo_url,
           content: post.content,
-          timestamp: post.created_at
+          created_at: post.created_at
           }
         })
-        res.status(200).json(publicData)
+        res.status(200).json(publicData[0])
       }
     })
 }

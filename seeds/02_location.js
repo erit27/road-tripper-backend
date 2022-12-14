@@ -19,8 +19,8 @@ exports.seed = async function(knex) {
       user_id: 'a6787936-f471-472c-bea7-d29973a42a98', 
       latitude: '-0.1780107670153107',
       longitude: '-78.46694157302666',
-      private_lat: '-0.19090141314041614',
-      private_long: '-78.4831067346342'
+      private_lat: '-22.946698622476628',
+      private_long: '-43.25440795549279'
     },
     {
       id: '941cb0ee-136c-4ff2-b412-8df4fdc7a10d',
