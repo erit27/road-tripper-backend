@@ -2,6 +2,7 @@ const knex = require("knex")(require("../knexfile"));
 require('dotenv').config()
 JWT_SECRET = process.env.JSONSECRETKEY;
 const jwt = require('jsonwebtoken');
+const { uuid } = require("uuidv4");
 
 function getToken(req) {
   if (req.headers.authorization) {
@@ -25,6 +26,41 @@ exports.postInfo = (req, res) => {
       })
     })
 }
+
+exports.createPost =  (req, res) => {
+  if (
+    !req.body.user_id ||
+    !req.body.title ||
+    !req.body.content ||
+    !req.body.private_content
+  ) {
+    res.status(400).json({
+      message: 'Error: Your request is missing data field/s'
+    })
+  } else {
+    const newId = uuid();
+    const newPost = {
+      id: newId,
+      user_id: req.body.user_id,
+      title: req.body.title,
+      hero_photo_url: req.body.hero_photo_url,
+      content: req.body.content,
+      private_content: req.body.private_content
+    };
+    knex("posts")
+      .insert(newPost)
+      .then((response) => {
+        res.status(201).json({
+          message: 'New post added successfully'
+        })
+      }) 
+      .catch(() => {
+        res.status(400).json({ 
+          message: 'Error adding new post'
+        })
+      })
+  }
+};
 
 exports.getLocations = (req, res) => {
   knex("location")

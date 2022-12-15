@@ -11,7 +11,7 @@ exports.up = function(knex) {
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
     table.string('title').notNullable();
-    table.string('hero_photo_url').notNullable().defaultTo('');
+    table.string('hero_photo_url').notNullable().defaultTo('https://cdn.britannica.com/58/154258-050-1D37F2E7/Toco-toucan.jpg');
     table.mediumtext('content').notNullable();
     table.mediumtext('private_content').notNullable();
     table.timestamps(true, true);

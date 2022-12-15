@@ -14,6 +14,10 @@ router
   .route('/:postId')
   .get(postController.getSinglePost)
 
+  router
+  .route('/new')
+  .post(postController.createPost)
+
   module.exports = router;
 
   
