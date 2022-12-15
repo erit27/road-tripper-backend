@@ -13,6 +13,7 @@ const postController = require('../controllers/postController')
 router
   .route('/:postId')
   .get(postController.getSinglePost)
+  .delete(postController.deletePost)
 
   router
   .route('/new')

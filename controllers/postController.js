@@ -49,7 +49,7 @@ exports.createPost =  (req, res) => {
     };
     knex("posts")
       .insert(newPost)
-      .then((response) => {
+      .then(() => {
         res.status(201).json({
           message: 'New post added successfully'
         })
@@ -62,12 +62,28 @@ exports.createPost =  (req, res) => {
   }
 };
 
+exports.deletePost = (req, res) => {
+  knex("posts")
+    .where("id", req.params.postId)
+    .delete()
+    .then(() => {
+      res.status(200).json({
+        message: `Post with ID ${req.params.postId} was successfully deleted`
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: `There was an error deleting post with ID: ${postId}`,
+        error: err
+      })
+    })
+}
+
 exports.getLocations = (req, res) => {
   knex("location")
     .then(async (data) => {
       const token = getToken(req); 
       const decoded = jwt.decode(token)
-      // console.log(jwt.decode(token))
       if(token && decoded && (decoded.access === 'family' || decoded.access === 'admin') && jwt.verify(token, JWT_SECRET)) {
         const privateLocations = data.map(loc => {
           return {
