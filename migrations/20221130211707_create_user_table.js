@@ -9,7 +9,6 @@ exports.up = function(knex) {
     table.string('first_name').notNullable();
     table.string('last_name').notNullable();
     table.string('hashed_pw').notNullable();
-    table.string('avatar');
     table.string('access').notNullable();
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now())
   })

@@ -94,10 +94,8 @@ exports.getSinglePost = (req, res) => {
     .where({'posts.id': req.params.postId})
     .then(async (data) => {
       const token = getToken(req); 
-      // console.log('token', token);
       const decoded = jwt.decode(token)
-      // console.log('decoded', decoded);
-      if((token && decoded && decoded.access === 'family') && jwt.verify(token, JWT_SECRET)) {
+      if((token && decoded && (decoded.access === 'family' || decoded.access === 'admin')) && jwt.verify(token, JWT_SECRET)) {
         const privateData = data[0];
         res.status(200).json(privateData)
       } else {

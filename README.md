@@ -32,7 +32,7 @@ A .env.sample has been provided, but you will need to create your own .env file 
 * A cloudinary name, key, and secret credentials can be obtained for free, please refer to the [Cloudinary developer get started guide](https://cloudinary.com/documentation/how_to_integrate_cloudinary) for more detail. 
 * The DB_LOCAL fields are related to your SQL password and username. The database name should match what you named the database in set up step 3 above.
 * The port can be changed to your preference, is it defaulted to 8080 here.
-* The JSON secret key can be any key you wish, however it is recommended to use a uuid generator or similar to obtain a complex key. 
+* The JSON secret key can be any key you wish, however it is recommended to use a uuid generator or similar to obtain a more secure key. 
 
 ## API Routes
 **POST /createaccount**

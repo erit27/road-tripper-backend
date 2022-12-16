@@ -15,12 +15,32 @@ exports.seed = async function(knex) {
       hero_photo_url: 'https://img.freepik.com/premium-photo/beautiful-stream-water-famous-rainforest-waterfall-thailand_54109-81.jpg?w=2000'
     },
     {
-      id: '4c669a7f-be7f-4923-9237-e5cb37a26fbd', 
+      id: '86b88ee7-5f13-4a66-9c04-15f812604aaf', 
       user_id: '56f59606-8ce9-4080-9f32-dbdce0b1975f',
+      title: 'Pirate Post',
+      content: `Coxswain Sea Legs draft Buccaneer rigging bilged on her anchor knave gunwalls scourge of the seven seas execution dock. Hempen halter ahoy dance the hempen jig spanker doubloon plunder blow the man down grog galleon landlubber or just lubber. Spanker topmast ho hands Sail ho Blimey pressgang Yellow Jack clipper fluke.
+      Carouser landlubber or just lubber Shiver me timbers provost bilged on her anchor draft topsail crack Jennys tea cup poop deck mutiny. Bucko splice the main brace log draft keelhaul rum clipper parrel overhaul knave. Buccaneer provost fluke booty to go on account transom pressgang six pounders rigging hang the jib.`,
+      private_content: 'List man-of-war league bucko American Main no prey, no pay black jack grog blossom overhaul heave to. Mizzen holystone Corsair log scallywag carouser aye quarterdeck keelhaul gally. Rum hogshead Brethren of the Coast grog blossom swing the lead clap of thunder Pirate Round interloper main sheet topgallant.',
+      hero_photo_url: 'https://media.tacdn.com/media/attractions-splice-spp-674x446/06/71/4e/26.jpg'
+    },
+    {
+      id: '4c669a7f-be7f-4923-9237-e5cb37a26fbd', 
+      user_id: 'a6787936-f471-472c-bea7-d29973a42a98',
       title: 'First Day in Peru!',
       content: 'Public content post practise',
       private_content: 'Private content only!',
       hero_photo_url: 'https://www.intrepidtravel.com/adventures/wp-content/uploads/2019/03/Intrepid-Travel-ecuador_amazon-jungle-river.jpg'
+    },
+    {
+      id: 'fc9b4077-b190-4148-bc79-ce073e4a39f6', 
+      user_id: '4503c80c-ef23-4ce1-9bf7-6ea048f699a9',
+      title: 'Carl Sagan Post',
+      content: `At the edge of forever laws of physics hundreds of thousands corpus callosum ship of the imagination globular star cluster? Vastness is bearable only through love of brilliant syntheses of brilliant syntheses white dwarf take root and flourish the only home we've ever known. Kindling the energy hidden in matter paroxysm of global death Orion's sword as a patch of light concept of the number one dream of the mind's eye.
+      Not a sunrise but a galaxyrise radio telescope realm of the galaxies rings of Uranus invent the universe billions upon billions. Rich in mystery something incredible is waiting to be known Vangelis vastness is bearable only through love a still more glorious dawn awaits bits of moving fluff. Hundreds of thousands shores of the cosmic ocean something incredible is waiting to be known shores of the cosmic ocean how far away encyclopaedia galactica?
+      Culture a mote of dust suspended in a sunbeam prime number tingling of the spine tendrils of gossamer clouds dispassionate extraterrestrial observer. Vastness is bearable only through love vanquish the impossible with pretty stories for which there's little good evidence are creatures of the cosmos citizens of distant epochs something incredible is waiting to be known. Courage of our questions great turbulent clouds courage of our questions two ghostly white figures in coveralls and helmets are softly dancing muse about ship of the imagination? /n
+      Cosmos made in the interiors of collapsing stars tesseract dream of the mind's eye realm of the galaxies descended from astronomers. A billion trillion across the centuries ship of the imagination shores of the cosmic ocean a still more glorious dawn awaits ship of the imagination. Bits of moving fluff rich in mystery permanence of the stars rings of Uranus courage of our questions stirred by starlight. Rich in heavy atoms courage of our questions the sky calls to us concept of the number one hearts of the stars not a sunrise but a galaxyrise and billions upon billions upon billions upon billions upon billions upon billions upon billions.`,
+      private_content: `Globular star cluster concept of the number one circumnavigated Sea of Tranquility of brilliant syntheses consciousness. Preserve and cherish that pale blue dot Rig Veda the ash of stellar alchemy dream of the mind's eye realm of the galaxies not a sunrise but a galaxyrise. Made in the interiors of collapsing stars vastness is bearable only through love two ghostly white figures in coveralls and helmets are softly dancing bits of moving fluff preserve and cherish that pale blue dot tendrils of gossamer clouds and billions upon billions upon billions upon billions upon billions upon billions upon billions.`,
+      hero_photo_url: 'https://cdn.mos.cms.futurecdn.net/nEtxF6h8J6UhKUUx2gDoTU.jpg'
     },
     {
       id: 'cd5c876b-21f3-48d2-8be8-b9111c1673bb', 
