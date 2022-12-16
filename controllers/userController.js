@@ -28,9 +28,9 @@ exports.updateUser = (req, res) => {
     .where( {id:  req.body.id})
     .update(req.body)
     .then((data) => {
-      res.status(200).send('it updated')
+      res.status(200).send('The users access was updated')
     })
     .catch(() => {
-      res.status(400).send('it did not work.')
+      res.status(400).send('We could not update the users access')
     })
 }

@@ -50,9 +50,6 @@ exports.login = (req, res) => {
               message: "login success",
               token: jwtToken,
             });
-            // console.log(error);
-            // console.log(data);
-            // console.log(user[0]);
           } else {
             res.status(401).send("This is not a valid user/password");
           }

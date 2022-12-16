@@ -62,23 +62,6 @@ exports.createPost =  (req, res) => {
   }
 };
 
-exports.deletePost = (req, res) => {
-  knex("posts")
-    .where("id", req.params.postId)
-    .delete()
-    .then(() => {
-      res.status(200).json({
-        message: `Post with ID ${req.params.postId} was successfully deleted`
-      })
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: `There was an error deleting post with ID: ${postId}`,
-        error: err
-      })
-    })
-}
-
 exports.getLocations = (req, res) => {
   knex("location")
     .then(async (data) => {
@@ -131,5 +114,22 @@ exports.getSinglePost = (req, res) => {
         })
         res.status(200).json(publicData[0])
       }
+    })
+}
+
+exports.deletePost = (req, res) => {
+  knex("posts")
+    .where("id", req.params.postId)
+    .delete()
+    .then(() => {
+      res.status(200).json({
+        message: `Post with ID ${req.params.postId} was successfully deleted`
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: `There was an error deleting post with ID: ${postId}`,
+        error: err
+      })
     })
 }
