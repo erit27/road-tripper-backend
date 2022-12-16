@@ -1,6 +1,5 @@
 # Road Tripper - Server 
 Road Tripper is a travel blog tailored to road trippers. It includes a map to outline the progress of the travellers, a gallery, and a post page. The site admins are able to grant access to users to also view 'family/friends only' content. 
-* The URL for the API is: 
 
 ## Related
 Here is the front-end for this project:
