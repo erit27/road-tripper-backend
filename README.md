@@ -35,39 +35,36 @@ A .env.sample has been provided, but you will need to create your own .env file 
 * The JSON secret key can be any key you wish, however it is recommended to use a uuid generator or similar to obtain a complex key. 
 
 ## API Routes
-
-/photos
-
-** POST /createaccount **
+**POST /createaccount**
 * Request must include username, first name, last name, password
 * Returns a json object with the new user information.
 
-** POST /login **
+**POST /login**
 * Request must include username, password
 * If successful, returns a login success message and a JWT token signed and including the user id, username, user access, first name, and last name. 
 
-** GET /locations **
+**GET /locations**
 * Checks if a JWT token has been provided. If the user provides a JWT token with a "public" access field, or no JWT token, the request returns the public locations in JSON format. If the user provides a token with "admin" or "family" access in the payload, the private locations are returned.
 
-** GET /posts/postinfo **
+**GET /posts/postinfo**
 * Returns a json object containing all posts title, id, authors first and last name, creation timestamp, hero photo URL 
 
-** GET /posts/:postId **
+**GET /posts/:postId**
 * Returns a json object containing information for a single post. Checks the JWT tokens access and returns private content as well if the access field is "family" or "admin".  
 
-** DELETE /posts/:postId ** 
+**DELETE /posts/:postId** 
 * Deletes post matching the post ID
 
-** POST /posts/new **
+**POST /posts/new**
 * Creates a new post. Checks that the incoming request includes the required fields. 
 
-** GET /users/ **
+**GET /users/**
 * Gets the user data, including id, first name, last name, access, and username. 
 
-** PUT /users/updatepermissions **
+**PUT /users/updatepermissions**
 * Takes a list of user IDs and updates those users permissions to match the incoming request. 
 
-** GET /photos **
+**GET /photos**
 * Accesses cloudinary to get a list of photos from the cloud.
 
 ## Technologies Used
